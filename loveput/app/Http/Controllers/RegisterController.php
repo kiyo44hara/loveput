@@ -32,7 +32,7 @@ class RegisterController extends Controller
     $request->validate([
         'name' => 'required|string|max:16|unique:users',
         'email' => 'required|string|email|max:101|unique:users',
-        'password' => 'required|string|confirmed|min:6',
+        'password' => 'required|string|confirmed|min:6|max:16|',
     ]);
     // ユーザーの各情報を取得してUserモデルに保存
     // パスワードはハッシュ化され、安全面サポート
