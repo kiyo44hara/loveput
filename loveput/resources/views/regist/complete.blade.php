@@ -7,6 +7,10 @@
         <title>登録完了画面</title>
     </head>
     <body>
-        <p>YO</p>
+        <p>
+            ようこそ、{{ $user->name }}さん！
+        </p>
+
+        <p>loveputで貴方の好きを沢山伝えて下さい！</p>
     </body>
 </html>
