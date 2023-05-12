@@ -1,13 +1,13 @@
 <?php 
 declare(strict_types=1); 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Member;
 ?>
 
 <?php
 
 
 // 使用者（モデル）指定
-use App\Models\User;
+use App\Models\Member\User;
 // POSTやGET等、パラメータを取得する為に必要
 use Illuminate\Http\Request;
 // パスワード等のハッシュ化や検証

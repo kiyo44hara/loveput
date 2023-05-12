@@ -1,17 +1,26 @@
 <?php
+// 非ログインページ
 
+    // WELCOMEページ
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    // トップページ
+    Route::get('/home', function() {
+        return view('home');
+    });
 
-Route::get('/home', function() {
-    return view('home');
-});
+    // 新規登録画面
+    Route::get('/register',  [App\Http\Controllers\Member\RegisterController::class, 'create'])
+        ->middleware('guest')
+        ->name('register');
+    Route::post('/register', [App\Http\Controllers\Member\RegisterController::class, 'store'])
+        ->middleware('guest');
 
-Route::get('/register',  [App\Http\Controllers\RegisterController::class, 'create'])
-    ->middleware('guest')
-    ->name('register');
-Route::post('/register', [App\Http\Controllers\RegisterController::class, 'store'])
-    ->middleware('guest');
-// namespace user;
+    // ログイン画面
+    Route::get('/login', [App\Http\Controllers\Member\LoginController::class, 'index'])
+        ->middleware('guest')
+        ->name('login');
+    Route::post('/login', [App\Http\Controllers\Member\LoginController::class, 'authenticate'])
+        ->middleware('guest');
