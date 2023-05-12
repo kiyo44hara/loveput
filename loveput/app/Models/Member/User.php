@@ -36,4 +36,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+// リレーションエリア
+    public function posts() {
+        return $this->hasMany('App\models\Post');
+    }
 }
