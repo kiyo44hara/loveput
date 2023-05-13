@@ -13,8 +13,20 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('posts.store') }}">
+                        <form method="POST" action="/posts" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            <!-- 画像 -->
+                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                <label for="image" class="control-label">Image</label>
+                                <input id="image" type="file" class="form-control" name="image">
+
+                                @if ($errors->has('image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <!-- タイトル -->
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                 <label for="title" class="col-md-4 control-label">Title</label>
@@ -29,6 +41,7 @@
                                     @endif
                                 </div>
                             </div>
+                            
                             <!-- 内容 -->
                             <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
                                 <label for="content" class="col-md-4 control-label">Content</label>

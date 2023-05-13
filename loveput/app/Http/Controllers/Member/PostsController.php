@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function new()
+ // 新規投稿画面
+    public function create()
     {
         $posts = Post::get();
 
@@ -24,29 +20,13 @@ class PostsController extends Controller
             'posts'=> $posts
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+// 新規投稿処理
     public function store(Request $request)
     {
         // バリデーション
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
-            'content' => 'required|max: 10000',
+            'content' => 'required|max: 5000',
         ]);
 
         // バリデーションエラー
@@ -56,84 +36,108 @@ class PostsController extends Controller
                     ->withInput()
                     ->withErrors($validator);
         }
-        // 新規投稿
+        // 手順
         $posts = new Post;
         $posts->title = $request->title;
         $posts->content = $request->content;
         $posts->user_id = Auth::id();
+        // 画像保存する場合
+        if ($request->file('image')) {
+            // 画像を一時ファイルから読み込み
+            $image = new \Imagick($request->file('image')->getRealPath());
+    
+            // 幅が500ピクセルになるようにリサイズ
+            $image->resizeImage(500, null, \Imagick::FILTER_LANCZOS, 1);
+    
+            // ファイル名を生成して保存
+            $filename = uniqid('post_') . '.' . $request->file('image')->getClientOriginalExtension();
+            $image->writeImage(public_path('storage/images/' . $filename));
+    
+            // Postモデルのimage_pathにファイルパスを保存
+            $post->image_path = 'storage/images/' . $filename;
+    
+            // Imagickオブジェクトを破棄
+            $image->destroy();
+        }
         $posts->save();
 
+        // 投稿成功リダイレクト先
         return redirect()
-            ->route('post')
+            ->route('posts.index')
             ->with('success', '投稿完了しました！あなたの好きが伝わりますように！');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+// 投稿一覧画面
+    public function index()
     {
-        //
+        $posts = Post::orderBy('created_at', 'desc')->get();
+
+        return view('Member.post_index', compact('posts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+// 投稿詳細画面
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+
+        return view('Member.post_show', compact('post'));
+    }
+
+// 投稿編集機能
     public function edit($id)
     {
+
         $post = Post::find($id);
+        // 他者の介入を防ぐ
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'Unathorized action.');
+        }
 
         return view('Member.post_edit', [
             'post' => $post
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+// 投稿更新機能
     public function update(Request $request, $id)
     {
+        // バリデーション
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
             'content' => 'required|max:5000',
         ]);
-
+        // バリデーションエラーの遷移先
         if ($validator->fails()) {
             return redirect()
                     ->back()
                     ->withInput()
                     ->withErrors($validator);
         }
-
+        // 更新処理
         $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
         $post->save();
 
+        // 更新成功リダイレクト先
         return redirect()
-            ->route('post')
+            ->route('posts.show', $post->id)
             ->with('success', '投稿を更新しました！');
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    // 投稿削除機能
+    public function destroy(Request $request, $id)
     {
-        //
+        // 削除処理
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // 削除成功リダイレクト先
+        return redirect()->route('posts.index')->with('success', '投稿削除完了しました！');
     }
 }

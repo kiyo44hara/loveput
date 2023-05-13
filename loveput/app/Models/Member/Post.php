@@ -6,8 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $fillable = [
+        'title', 'content'
+    ];
+
 // リレーションエリア
     public function user(){
-    return $this->hasmany('App\Models\Post');
+    return $this->belongsTo('App\Models\User');
     }
+
+    public function images(){
+        return $this->hasMany('App\Models\Image');
+    }
+
 }
