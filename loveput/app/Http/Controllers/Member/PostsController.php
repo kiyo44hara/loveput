@@ -16,11 +16,11 @@ class PostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function new()
     {
         $posts = Post::get();
 
-        return view('Member.posts',[
+        return view('Member.post_new',[
             'posts'=> $posts
         ]);
     }
@@ -51,7 +51,8 @@ class PostsController extends Controller
 
         // バリデーションエラー
         if ($validator->fails()) {
-            return redirect('/')
+            return redirect()
+                    ->back()
                     ->withInput()
                     ->withErrors($validator);
         }
@@ -62,7 +63,9 @@ class PostsController extends Controller
         $posts->user_id = Auth::id();
         $posts->save();
 
-        return redirect('/');
+        return redirect()
+            ->route('post')
+            ->with('success', '投稿完了しました！あなたの好きが伝わりますように！');
     }
 
     /**
@@ -84,7 +87,11 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('Member.post_edit', [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -96,7 +103,27 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:30',
+            'content' => 'required|max:5000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                    ->back()
+                    ->withInput()
+                    ->withErrors($validator);
+        }
+
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()
+            ->route('post')
+            ->with('success', '投稿を更新しました！');
+
     }
 
     /**
