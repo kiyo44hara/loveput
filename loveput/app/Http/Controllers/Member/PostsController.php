@@ -27,6 +27,7 @@ class PostsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
             'content' => 'required|max: 5000',
+            'image' => 'nullable|image|max:2048' // 2MB = 2048KB
         ]);
 
         // バリデーションエラー
@@ -43,22 +44,10 @@ class PostsController extends Controller
         $posts->user_id = Auth::id();
         // 画像保存する場合
         if ($request->file('image')) {
-            // 画像を一時ファイルから読み込み
-            $image = new \Imagick($request->file('image')->getRealPath());
-    
-            // 幅が500ピクセルになるようにリサイズ
-            $image->resizeImage(500, null, \Imagick::FILTER_LANCZOS, 1);
-    
-            // ファイル名を生成して保存
-            $filename = uniqid('post_') . '.' . $request->file('image')->getClientOriginalExtension();
-            $image->writeImage(public_path('storage/images/' . $filename));
-    
-            // Postモデルのimage_pathにファイルパスを保存
-            $post->image_path = 'storage/images/' . $filename;
-    
-            // Imagickオブジェクトを破棄
-            $image->destroy();
+            $path = $request->file('image')->store('public/images');
+            $posts->image_path = str_replace('public/', '', $path);
         }
+
         $posts->save();
 
         // 投稿成功リダイレクト先
