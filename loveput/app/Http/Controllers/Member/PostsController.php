@@ -43,9 +43,13 @@ class PostsController extends Controller
         $posts->content = $request->content;
         $posts->user_id = Auth::id();
         // 画像保存する場合
-        if ($request->file('image')) {
-            $path = $request->file('image')->store('public/images');
-            $posts->image_path = str_replace('public/', '', $path);
+        if ($request->hasFile('images')) {
+            $imagePaths = [];
+            foreach($request->file('images') as $image) {
+                $path = $image->store('public/images');
+                $imagePaths[] = str_replace('public/', '', $path);
+            }
+            $posts->image_path = json_encode($imagePaths);
         }
 
         $posts->save();

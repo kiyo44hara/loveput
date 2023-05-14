@@ -19,8 +19,8 @@
                                 <!-- 画像 -->
                                 <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                                     <label for="image" class="control-label">Image</label>
-                                    <input id="image" type="file" name="image">
-
+                                    <input id="image" type="file" name="images[]" multiple>
+                                    <input id="image2" type="file" name="images[]" multiple>
                                     @if ($errors->has('image'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('image') }}</strong>

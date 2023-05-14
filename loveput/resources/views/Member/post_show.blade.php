@@ -7,8 +7,11 @@
                 <div class="card">
                     <h3 class="card-header">{{ $post->title }}</h3>
                     @if($post->image_path)
-                            <img src="{{ asset('storage/' . $post->image_path) }}" alt="{{ $post->title }}" class="img-fluid">
+                        @foreach(json_decode($post->image_path, true) as $imagePath)
+                            <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $post->title }}" class="img-fluid">
+                        @endforeach
                     @endif
+
                     <div class="card-body">
                         <p class="card-text">{{ $post->content }}</p>
                     </div>
