@@ -21,3 +21,35 @@ body {
 .log-sign-in span {
     margin-left: 10px;
 }
+
+.alert-alert-success {
+    background-color: rgba(255,0,103,0.20);
+    padding: 20px;
+    font-size: 20px;
+}
+
+.test {
+    background-color: rgba(255,0,103,0.20);
+    font-size: 20px;
+    position: absolute;
+    top: 56vh;
+    left: 26vw;
+}
+
+.select {
+    font-size: 20px;
+    position: absolute;
+    top: 63vh;
+    left: 41vw;
+}
+
+.select span {
+    margin-left: 260px;
+}
+
+.select a {
+    color: rgb(121, 0, 121);
+    background-color: rgba(255,0,103,0.20);
+    border-radius: 10px;
+    padding: 5px;
+}
