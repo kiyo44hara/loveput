@@ -10,18 +10,69 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/hamburger.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <!-- CSS別窓 -->
+    <link rel="stylesheet" href="{{ asset('css/hamburger.css') }}">
+
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
+
 <body>
     <div id="app">
-        
+        <!-- ハンバーガーメニュー -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="hamburger-menu">
+        <ul>
+            <!-- ログイン時 -->
+            <?php if (Auth::check()) { ?>
+            <li>
+                <a href="<?= route('home') ?>">Top</a>
+            </li>
+            <li>
+                <a href="<?= route('home') ?>">Room</a>
+            </li>
+            <li>
+                <a href="<?= route('post') ?>">Present</a>
+            </li>
+            <li>
+                <a href="<?= route('posts.index') ?>">Index</a>
+            </li>
+            <li>
+                <!-- GETをキャンセル(onclick="event.preventDefault();)してログアウト処理を実行する動作 -->
+                <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                ログアウト
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                @csrf
+                </form>
+            </li>
+            <!-- 非ログイン時 -->
+            <?php } else { ?>
+            <li>
+                <a href="<?= route('register') ?>">新規会員登録</a>
+            </li>
+            <li>
+                <a href="<?= route('login') ?>">ログイン</a>
+            </li>
+            <?php } ?>
+        </ul>
+        </nav>
+
 
         <main class="py-4">
             @yield('content')
