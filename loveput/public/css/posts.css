@@ -1,0 +1,18 @@
+body {
+    background-image: url("/images/background_posts.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.panel-panel-default {
+  display: flex;
+  margin-top: 200px;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.80);
+  border-radius: 15px;
+}
+
+.panel-body {
+    width: 100%;
+}
