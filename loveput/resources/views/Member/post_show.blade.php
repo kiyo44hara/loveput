@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -13,8 +12,9 @@
                     @endif
 
                     <div class="card-body">
-                        <p class="card-text">{{ $post->content }}</p>
+                        <p class="card-text" style="white-space: pre-line;">{{ $post->content }}</p>
                     </div>
+
                 
                     <div class="card-footer">
                         <small class="text-muted">{{ $post->created_at->diffForHumans() }}
