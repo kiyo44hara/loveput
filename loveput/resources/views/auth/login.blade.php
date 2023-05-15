@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/log_sign_in.css') }}">
-<body class= log_sign_in>
+<link rel="stylesheet" href="{{ asset('css/log-sign-in.css') }}">
+<body class="log_sign_in">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('ログイン') }}</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('login') }}">
@@ -59,6 +59,8 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <div class="auth-guide">登録済みの方は<a href="{{ route('register') }}" >こちら</a>から</div>
                         </form>
                     </div>
                 </div>

@@ -1,6 +1,8 @@
+<!-- 投稿詳細 -->
 @extends('layouts.app')
-
 @section('content')
+<body>
+    <link rel="stylesheet" href="{{ asset('css/posts.css') }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -13,16 +15,22 @@
                     @endif
 
                     <div class="card-body">
-                        <p class="card-text">{{ $post->content }}</p>
+                        <p class="card-text" style="white-space: pre-line;">{{ $post->content }}</p>
                     </div>
+
                 
                     <div class="card-footer">
-                        <small class="text-muted">{{ $post->created_at->diffForHumans() }}
-                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集</a>
+                        @if(Auth::user()->id == $post->user_id)
+                            <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集</a>
+                        @endif
                         </small>
+                        <small>投稿者: {{ $post->user->name }}</small>
+                        <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
+                        <small class="float-right">{{ $post->created_at->diffForHumans() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</body>
 @endsection

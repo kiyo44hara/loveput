@@ -13,6 +13,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function() {
 
+    // マイページ
+    Route::get('/user/{id}', 'Member\UsersController@show')->name('user.show')->middleware('auth');
+
 
     // 新規投稿画面
     Route::get('post/new', 'Member\PostsController@create')->name('post');

@@ -38,6 +38,6 @@ class User extends Authenticatable
     ];
 // リレーションエリア
     public function posts() {
-        return $this->hasMany('App\models\Post');
+        return $this->hasMany('App\Models\Member\Post');
     }
 }
