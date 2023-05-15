@@ -12,11 +12,7 @@ class Post extends Model
 
 // リレーションエリア
     public function user(){
-    return $this->belongsTo('App\Models\User');
-    }
-
-    public function images(){
-        return $this->hasMany('App\Models\Image');
+    return $this->belongsTo('App\Models\Member\User');
     }
 
 }

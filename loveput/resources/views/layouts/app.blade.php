@@ -39,6 +39,11 @@
             background-color: white;
             color: pink;
         }
+
+        /* ログイン画面、新規登録画面の案内（登録がお済でない方は…） */
+        .auth-guide {
+            text-align: right;
+        }
     </style>
     
 </head>
@@ -59,7 +64,8 @@
                 <a href="<?= route('home') ?>">Top</a>
             </li>
             <li>
-                <a href="<?= route('home') ?>">My Room</a>
+            <a href="{{ route('user.show', ['id' => Auth::user()->id]) }}">My Room</a>
+
             </li>
             <li>
                 <a href="<?= route('post') ?>">Present</a>
@@ -81,7 +87,7 @@
             <!-- 非ログイン時 -->
             <?php } else { ?>
             <li>
-                <a href="<?= route('register') ?>">新規会員登録</a>
+            <a href="<?= route('register') ?>">新規会員登録</a>
             </li>
             <li>
                 <a href="<?= route('login') ?>">ログイン</a>

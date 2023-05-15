@@ -1,62 +1,72 @@
 @extends('layouts.app')
-
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Presemt Edit</div>
+<body>
+    <link rel="stylesheet" href="{{ asset('css/posts.css') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Present Edit</div>
 
-                    <div class="panel-body">
-                        <!-- バリデーションエラー -->
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <div>入力内容に誤りがあります。</div>
-                                <div>
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
+                        <div class="card-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
                                 </div>
-                            </div>
-                        @endif
+                            @endif
 
-                        <!-- 編集処理 -->
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('posts.update', $post->id) }}">
-                            {{ csrf_field() }}
-                            {{ method_field('PUT') }}
+                            <form method="POST" action="{{ route('posts.update', $post->id) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                            <!-- タイトル -->
-                            <label for="title" class="col-md-4 control-label">Title</label>
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title', $post->title) }}" required autofocus>
-                            </div>
-
-                            <!-- 内容 -->
-                            <label for="content" class="col-md-4 control-label">Content</label>
-                            <div class="col-md-6">
-                                <textarea id="content" class="form-control" name="content" required>{{ old('content', $post->content) }}</textarea>
-                            </div>
-
-                            <!-- 更新ボタン -->
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">更新</button>
+                                <div class="form-group">
+                                    <label for="image">Images（ドラッグで選択すると、複数の画像投稿ができます。）</label></br>
+                                    <input id="image1" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
+                                    <input id="image2" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
+                                    @if ($errors->has('image'))
+                                        <span role="alert">
+                                            <strong>{{ $errors->first('image') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                            </div>
-                        </form>
 
-                            <!-- 削除処理 -->
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
-                            <!-- 削除ボタン -->
-                            <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') ?? $post->title }}" required autofocus>
+
+                                    @if ($errors->has('title'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="content">Content</label>
+                                    <textarea id="content" class="form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" required>{{ old('content') ?? $post->content }}</textarea>
+
+                                    @if ($errors->has('content'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('content') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <!-- 削除ボタン -->
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('本当に削除しますか？')">削除する</button>
+                                </form>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+</body>
 @endsection

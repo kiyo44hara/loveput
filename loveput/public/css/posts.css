@@ -23,3 +23,6 @@ body {
 }
 
 /* 投稿一覧 */
+.card-body {
+    background-color: #ff00001a;
+}
