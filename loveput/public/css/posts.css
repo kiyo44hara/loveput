@@ -1,3 +1,4 @@
+/* 投稿系共通背景 */
 body {
     background-image: url("/images/background_posts.jpg");
     background-size: cover;
@@ -5,6 +6,7 @@ body {
     background-attachment: fixed;
 }
 
+/* 新規投稿・編集画面 */
 .panel-heading{
     font-weight: bold;
 }
@@ -19,3 +21,5 @@ body {
 .panel-body {
     width: 100%;
 }
+
+/* 投稿一覧 */

@@ -1,9 +1,10 @@
 .log_sign_in {
-    background-image: url("/images/.log_sign_in.jpg");
+    background-image: url("/images/log_sign_in.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+    color: blue;
 }
 
 .card {

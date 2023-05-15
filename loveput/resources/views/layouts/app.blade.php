@@ -23,6 +23,23 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        /* ページネーションレイアウト */
+        .pagination li a {
+        color: white;
+        background-color: pink;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #22001c;
+            color: #ffd400;
+        }
+
+        .pagination li a:hover {
+            background-color: white;
+            color: pink;
+        }
+    </style>
     
 </head>
 
@@ -42,7 +59,7 @@
                 <a href="<?= route('home') ?>">Top</a>
             </li>
             <li>
-                <a href="<?= route('home') ?>">Room</a>
+                <a href="<?= route('home') ?>">My Room</a>
             </li>
             <li>
                 <a href="<?= route('post') ?>">Present</a>

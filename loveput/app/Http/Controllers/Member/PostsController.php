@@ -8,6 +8,7 @@ use App\Models\Member\User;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 
 class PostsController extends Controller
 {
@@ -61,12 +62,14 @@ class PostsController extends Controller
     }
 
 // 投稿一覧画面
-    public function index()
+public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-
-        return view('Member.post_index', compact('posts'));
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        return view('Member.post_index', ['posts' => $posts]);
     }
+
+
+
 
 // 投稿詳細画面
     public function show($id)
