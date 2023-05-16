@@ -33,7 +33,7 @@ return [
     'exists'               => '指定された:attributeは存在しません。',
     'file'                 => ':attributeにはファイルを指定してください。',
     'filled'               => ':attributeには空でない値を指定してください。',
-    'image'                => ':attributeには画像ファイルを指定してください。',
+    'image'                => ':attributeの容量が大きすぎます。2MB以下にして下さい。',
     'in'                   => ':attributeには:valuesのうちいずれかの値を指定してください。',
     'in_array'             => ':attributeが:otherに含まれていません。',
     'integer'              => ':attributeには整数を指定してください。',

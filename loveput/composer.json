@@ -11,6 +11,8 @@
         "php": "^7.2.5|^8.0",
         "barryvdh/laravel-debugbar": "^3.6",
         "fideloper/proxy": "^4.4",
+        "google/cloud-language": "^0.29.0",
+        "google/cloud-translate": "^1.13",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.0"
