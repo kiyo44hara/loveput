@@ -77,15 +77,19 @@ class PostController extends Controller
     }
 
 // 投稿一覧画面
-public function index(Request $request)
+    public function index(Request $request)
     {
         $keyword = $request->input('keyword');
 
         $query = Post::query();
         // empty関数:意図しない値の混入を防ぐ
         if (!empty($keyword)) {
-            $query->where('title', 'LIKE', "%{$keyword}%")
-                ->orWhere('content', 'LIKE', "%{$keyword}");
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('content', 'LIKE', "%{$keyword}%")
+                    // 感情スコアが低いものを検知し、不適切な投稿を確認しやすくする。
+                    ->orWhere('summary', '<=', 0);
+            });
         }
 
         $posts = $query->orderBy('created_at', 'desc')->paginate(12);

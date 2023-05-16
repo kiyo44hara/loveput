@@ -42,6 +42,7 @@
                                     <div class="card-footer">
                                         <small>投稿者: {{ $post->user->name }}</small>
                                         <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
+                                        <small>感情スコア:{{ $post->summary }}</small>
                                     </div>
 
 
