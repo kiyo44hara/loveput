@@ -31,6 +31,7 @@
                         <!-- 投稿経過時間 -->
                         <small class="float-right">{{ $post->created_at->diffForHumans() }}
                     </div>
+                    <div>@include('Member.love_button', ['post' => $post])</div>
                 </div>
             </div>
         </div>

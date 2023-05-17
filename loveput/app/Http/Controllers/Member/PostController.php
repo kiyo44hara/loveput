@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Models\Member\Post;
 use App\Models\Member\User;
+use App\Models\Member\Love;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Auth;
@@ -44,12 +45,15 @@ class PostController extends Controller
 
         // 自然言語処理（API）導入
         $client = new LanguageServiceClient(['keyFile' => '/var/www/loveput/sunny-shadow.json']);
+        // APIに読み込ませるドキュメントの作成
         $document = new Document();
         $document->setContent($request->title . ' ' . $request->content);
         $document->setType(Type::PLAIN_TEXT);
+        // 感情分析の実行
         $response = $client->analyzeSentiment($document);
         $sentiment = $response->getDocumentSentiment();
         $score = $sentiment->getScore();
+        // スコアを数値として表示する。感情スコアと命名。
         $summary = $score;
 
         // 手順
