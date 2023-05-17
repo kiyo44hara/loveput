@@ -21,9 +21,11 @@
                                     <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
                                         <input id="image1" type="file" name="images[]" multiple>
                                         <input id="image2" type="file" name="images[]" multiple>
-                                        @if ($errors->has('images'))
+                                        @if ($errors->has('images.*'))
                                             <div class="help-block">
-                                                <strong>{{ $errors->first('images') }}</strong>
+                                                @foreach ($errors->get('images.*') as $error)
+                                                    <strong>{{ $error[0] }}</strong>
+                                                @endforeach
                                             </div>
                                         @endif
                                     </div>

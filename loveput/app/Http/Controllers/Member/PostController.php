@@ -40,8 +40,9 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
             'content' => 'required|max: 5000',
-            'images' => 'nullable|image|max:2048' // 2MB = 2048KB
+            'images.*' => 'nullable|image|max:2048' // 2MB = 2048KB
         ]);
+        
 
         // バリデーションエラー
         if ($validator->fails()) {

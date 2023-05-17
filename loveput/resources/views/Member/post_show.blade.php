@@ -8,6 +8,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <h3 class="card-header">{{ $post->title }}</h3>
+                    <!-- 画像 -->
                     @if($post->image_path)
                         @foreach(json_decode($post->image_path, true) as $imagePath)
                             <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $post->title }}" class="img-fluid">

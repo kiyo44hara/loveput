@@ -76,8 +76,8 @@ return [
     'string'               => ':attributeには文字列を指定してください。',
     'timezone'             => ':attributeには正しい形式のタイムゾーンを指定してください。',
     'unique'               => 'その:attributeはすでに使われています。',
-    'uploaded'             => ':attributeのアップロードに失敗しました。',
-    'url'                  => ':attributeには正しい形式のURLを指定してください。',
+    'uploaded'             => 'ファイルサイズが大きすぎます。2MBを超える画像の投稿はできません',
+    'url'                  => '正しい形式のURLを指定してください(PNG.JPEG)。',
 
 
     'custom' => [

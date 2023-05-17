@@ -26,14 +26,12 @@ class LoveController extends Controller
             $this->loveRepository->delete($userId, $postId);
             $response = [
                 'status' => 'unloved',
-                'message' => 'いいねを取り消しました。',
             ];
             // いいね処理
         } else {
             $this->loveRepository->create($userId, $postId);
             $response = [
                 'status' => 'loved',
-                'message' => 'いいねしました。',
             ];
         }
         // 非同期通信を可能にするために、json形式でレスポンスを返す
