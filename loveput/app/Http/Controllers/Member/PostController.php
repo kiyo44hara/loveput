@@ -7,6 +7,7 @@ use App\Models\Member\Post;
 use App\Models\Member\User;
 use App\Models\Member\Love;
 use App\Http\Controllers\Controller;
+use App\Repositories\LoveRepository;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
@@ -16,6 +17,13 @@ use Google\Cloud\Language\V1\Document\Type;
 
 class PostController extends Controller
 {
+    protected $loveRepository;
+
+    public function __construct(LoveRepository $loveRepository)
+    {
+        $this->loveRepository = $loveRepository;
+    }
+
  // 新規投稿画面
     public function create()
     {
@@ -107,8 +115,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $loveCount = $this->loveRepository->getLoveCount($id);
 
-        return view('Member.post_show', compact('post'));
+        return view('Member.post_show', compact('post', 'loveCount'));
     }
 
 // 投稿編集機能

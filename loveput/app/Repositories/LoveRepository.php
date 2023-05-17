@@ -29,4 +29,10 @@ class LoveRepository
                     ->where('post_id', $postId)
                     ->exists();
     }
+
+    // いいねカウント取得
+    public function getLoveCount($postId)
+    {
+        return Love::where('post_id', $postId)->count();
+    }
 }
