@@ -6,6 +6,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-2">
+                <!-- フラッシュメッセージ -->
+                <div class="panel-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                </div>
                 <!-- ビュー名 -->
                 <div class="panel-heading">present index</div>
                 <div class="panel panel-default">
@@ -30,7 +38,9 @@
 
                                     <div class="card-body">
                                     @if($post->image_path)
+                                    <a href="{{ route('posts.show', $post->id) }}" >
                                         <img src="{{ asset('storage/' . json_decode($post->image_path, true)[0]) }}" alt="{{ $post->title }}" class="card-img-top">
+                                    </a>
                                     @endif
                                         @if (mb_strlen($post->content) > 100)
                                             <div class="card-text">{{ mb_strimwidth($post->content, 0, 100, "...") }}</div>
@@ -40,7 +50,7 @@
                                         @endif
                                     </div>
                                     <div class="card-footer">
-                                        <small>投稿者: {{ $post->user->name }}</small>
+                                        <small><a href="{{ route('posts.show', $post->id) }}" >投稿者: {{ $post->user->name }}</a></small>
                                         <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
                                         <small>感情スコア:{{ $post->summary }}</small>
                                     </div>

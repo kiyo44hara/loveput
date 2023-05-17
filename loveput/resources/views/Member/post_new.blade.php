@@ -8,16 +8,10 @@
                     <div class="panel-heading">Present Time</div>
                     <div>感動した本、映画、愛する推しの事を、貴方の言葉で伝えて下さい</div>
                         <div class="panel-panel-default">
-                            <!-- フラッシュメッセージ -->
-                            <div class="panel-body">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
                                 <form method="POST" action="/posts" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <!-- 画像 -->
+                                    <label for="title" class="col-md-12 control-label">【Images（ドラッグで選択すると、複数の画像投稿ができます。）】</label>
                                     <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
                                         <input id="image1" type="file" name="images[]" multiple>
                                         <input id="image2" type="file" name="images[]" multiple>
@@ -67,6 +61,7 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <a href="{{ route('posts.index') }}">戻る</a>
                                 </form>
                             </div>
                         </div>

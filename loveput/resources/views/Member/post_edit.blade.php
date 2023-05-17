@@ -7,11 +7,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">Present Edit</div>
-
+                        <!-- エラーメッセージ(投稿画像数制限) -->
                         <div class="card-body">
-                            @if (session('success'))
+                            @if (session('false'))
                                 <div class="alert alert-success">
-                                    {{ session('success') }}
+                                    {{ session('false') }}
                                 </div>
                             @endif
 
@@ -19,16 +19,19 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="form-group">
-                                    <label for="image">Images（ドラッグで選択すると、複数の画像投稿ができます。）</label></br>
-                                    <input id="image1" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
-                                    <input id="image2" type="file" class="{{ $errors->has('image') ? ' is-invalid' : '' }}" name="image[]" multiple>
-                                    @if ($errors->has('image'))
-                                        <span role="alert">
-                                            <strong>{{ $errors->first('image') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                                <!-- 画像 -->
+                                <label for="title" class="col-md-12 control-label">【Images（ドラッグで選択すると、複数の画像投稿ができます。）】</label>
+                                    <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
+                                        <input id="image1" type="file" name="images[]" multiple>
+                                        <input id="image2" type="file" name="images[]" multiple>
+                                        @if ($errors->has('images.*'))
+                                            <div class="help-block">
+                                                @foreach ($errors->get('images.*') as $error)
+                                                    <strong>{{ $error[0] }}</strong>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
 
                                 <div class="form-group">
                                     <label for="title">Title</label>
@@ -55,14 +58,14 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
-                                <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+                            </form>
+                            <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <!-- 削除ボタン -->
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('本当に削除しますか？')">削除する</button>
-                                </form>
-
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('本当に削除しますか？')">Dlete</button>
                             </form>
+                            <a href="{{ route('posts.show', $post->id) }}">戻る</a>
                         </div>
                     </div>
                 </div>

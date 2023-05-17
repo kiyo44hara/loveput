@@ -136,33 +136,54 @@ class PostController extends Controller
         ]);
     }
 
-// 投稿更新機能
+    // 投稿更新機能
     public function update(Request $request, $id)
     {
         // バリデーション
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
             'content' => 'required|max:5000',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048' // 2MB = 2048KB
         ]);
+        
+
         // バリデーションエラーの遷移先
         if ($validator->fails()) {
             return redirect()
-                    ->back()
-                    ->withInput()
-                    ->withErrors($validator);
+                ->back()
+                ->withInput()
+                ->withErrors($validator);
         }
+
         // 更新処理
         $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->save();
+
+        // 画像の保存とパスの更新
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            if (count($request->file('images')) >= 5) {
+                return redirect()
+                    ->route('posts.edit', $post->id)
+                    ->with('false','投稿できる画像は4枚までです。');
+            }
+
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('public/images');
+                $imagePaths[] = str_replace('public/', '', $path);
+            }
+            $post->image_path = json_encode($imagePaths);
+    }
+
+    $post->save();
 
         // 更新成功リダイレクト先
         return redirect()
             ->route('posts.show', $post->id)
             ->with('success', '投稿を更新しました！');
-
     }
+
 
     // 投稿削除機能
     public function destroy(Request $request, $id)
