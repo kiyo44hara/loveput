@@ -19,7 +19,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <!-- CSS別窓 -->
     <link rel="stylesheet" href="{{ asset('css/hamburger.css') }}">
-
+    <!-- フォントオーサム -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->

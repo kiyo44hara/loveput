@@ -1,3 +1,4 @@
+<!-- ユーザーのマイページ -->
 @extends('layouts.app')
 @section('content')
 <body>
@@ -5,6 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
+                <!-- 画面左側 -->
                 <h2>{{ $user->name }}さんの </h2>
                 <h2>My Room</h2>
                 <hr>
@@ -13,6 +15,7 @@
                     <div class="form-control-static">{{ $user->email }}</div>
                 </div>
             </div>
+            <!-- 画面右側 -->
             <div class="col-md-8">
                 <h2>プレゼン一覧</h2>
                 <hr>
@@ -45,7 +48,7 @@
                         </ul>
                     </nav>
                 @else
-                    <p>{{ $user->name }}さんはまだ作品を投稿していません。</p>
+                    <p>プレゼンを投稿すると、こちらに表示されます。</p>
                 @endif
             </div>
         </div>

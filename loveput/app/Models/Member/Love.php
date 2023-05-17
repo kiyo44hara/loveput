@@ -15,6 +15,13 @@ class Love extends Model
         'user_id', 'post_id'
     ];
 
+    
+    public function getLoveCountAttribute()
+    {
+        return $this->loves()->count();
+    }
+
+
     // リレーションエリア
     public function user()
     {

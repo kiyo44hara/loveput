@@ -11,14 +11,8 @@
             </div>
         @endif
         <div class="test">いらっしゃいませ、{{ Auth::user()->name }}さん!貴方のLoveを聞かせてください!</div>
-        <div class="select"><a href="{{ route('post') }}">はい!</a>
-            <span><a href="{{ route('posts.index') }}">いいえ!</a></span>
+        <div class="select"><a href="{{ route('post') }}">はい!</a> <!-- 新規投稿画面 -->
+            <span><a href="{{ route('posts.index') }}">いいえ!</a></span><!-- 投稿一覧画面 -->
         </div>
-        @if(!Auth::check())
-        <div class="log-sign-in">
-            <a href="{{ route('register') }}">会員登録</a>
-            <span><a href="{{ route('login') }}">ログイン</a></span>
-        </div>
-        @endif
     </body>
 </html>

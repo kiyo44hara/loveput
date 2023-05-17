@@ -6,8 +6,17 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                <!-- フラッシュメッセージ -->
+                <div class="panel-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="card">
                     <h3 class="card-header">{{ $post->title }}</h3>
+                    <!-- 画像 -->
                     @if($post->image_path)
                         @foreach(json_decode($post->image_path, true) as $imagePath)
                             <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $post->title }}" class="img-fluid">
@@ -33,6 +42,7 @@
                     </div>
                     <div>@include('Member.love_button', ['post' => $post])</div>
                 </div>
+                <a href="{{ route('posts.index') }}">戻る</a>
             </div>
         </div>
     </div>

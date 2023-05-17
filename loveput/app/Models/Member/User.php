@@ -40,4 +40,9 @@ class User extends Authenticatable
     public function posts() {
         return $this->hasMany('App\Models\Member\Post');
     }
+
+    public function loves()
+    {
+        return $this->hasMany(Love::class);
+    }
 }

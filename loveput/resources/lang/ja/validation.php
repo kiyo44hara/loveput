@@ -33,7 +33,7 @@ return [
     'exists'               => '指定された:attributeは存在しません。',
     'file'                 => ':attributeにはファイルを指定してください。',
     'filled'               => ':attributeには空でない値を指定してください。',
-    'image'                => ':attributeの容量が大きすぎます。2MB以下にして下さい。',
+    'image'                => ':形式が違います。jpeg,png,jpg,gifいずれかで選択してください。',
     'in'                   => ':attributeには:valuesのうちいずれかの値を指定してください。',
     'in_array'             => ':attributeが:otherに含まれていません。',
     'integer'              => ':attributeには整数を指定してください。',
@@ -76,8 +76,8 @@ return [
     'string'               => ':attributeには文字列を指定してください。',
     'timezone'             => ':attributeには正しい形式のタイムゾーンを指定してください。',
     'unique'               => 'その:attributeはすでに使われています。',
-    'uploaded'             => ':attributeのアップロードに失敗しました。',
-    'url'                  => ':attributeには正しい形式のURLを指定してください。',
+    'uploaded'             => 'ファイルサイズが大きすぎます。2MBを超える画像の投稿はできません',
+    'url'                  => '正しい形式のURLを指定してください(PNG.JPEG)。',
 
 
     'custom' => [
