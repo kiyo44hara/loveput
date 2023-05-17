@@ -18,13 +18,13 @@
                                 <form method="POST" action="/posts" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <!-- 画像 -->
-                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                    <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
                                         <input id="image1" type="file" name="images[]" multiple>
                                         <input id="image2" type="file" name="images[]" multiple>
-                                        @if ($errors->has('image'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('image') }}</strong>
-                                            </span>
+                                        @if ($errors->has('images'))
+                                            <div class="help-block">
+                                                <strong>{{ $errors->first('images') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
 

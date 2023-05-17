@@ -9,6 +9,14 @@
                 <!-- ビュー名 -->
                 <div class="panel-heading">present index</div>
                 <div class="panel panel-default">
+                    <!-- 検索画面 -->
+                    <div class="search-area">
+                        <form action="{{ route('posts.index') }}" method="GET">
+                            <input type="text" name="keyword" value="{{ $keyword }}">
+                            <input type="submit" value="検索">
+                        </form>
+                    </div>
+                    <!-- 検索画面 -->
                     <div class="panel-body">
                         <div class="row">
                             @foreach ($posts as $post)
@@ -34,6 +42,7 @@
                                     <div class="card-footer">
                                         <small>投稿者: {{ $post->user->name }}</small>
                                         <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
+                                        <small>感情スコア:{{ $post->summary }}</small>
                                     </div>
 
 

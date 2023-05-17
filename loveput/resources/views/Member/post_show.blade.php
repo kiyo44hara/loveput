@@ -25,9 +25,13 @@
                         @endif
                         </small>
                         <small>投稿者: {{ $post->user->name }}</small>
+                        <!-- 投稿日 -->
                         <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
+                        <small>感情スコア:{{ $post->summary }}</small>
+                        <!-- 投稿経過時間 -->
                         <small class="float-right">{{ $post->created_at->diffForHumans() }}
                     </div>
+                    <div>@include('Member.love_button', ['post' => $post])</div>
                 </div>
             </div>
         </div>

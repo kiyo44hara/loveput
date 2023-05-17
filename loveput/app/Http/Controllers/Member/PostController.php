@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Models\Member\Post;
 use App\Models\Member\User;
+use App\Models\Member\Love;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
+use Google\Cloud\Language\V1\LanguageServiceClient;
+use Google\Cloud\Language\V1\Document;
+use Google\Cloud\Language\V1\Document\Type;
 
-class PostsController extends Controller
+class PostController extends Controller
 {
  // 新規投稿画面
     public function create()
@@ -28,7 +32,7 @@ class PostsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
             'content' => 'required|max: 5000',
-            'image' => 'nullable|image|max:2048' // 2MB = 2048KB
+            'images' => 'nullable|image|max:2048' // 2MB = 2048KB
         ]);
 
         // バリデーションエラー
@@ -38,6 +42,20 @@ class PostsController extends Controller
                     ->withInput()
                     ->withErrors($validator);
         }
+
+        // 自然言語処理（API）導入
+        $client = new LanguageServiceClient(['keyFile' => '/var/www/loveput/sunny-shadow.json']);
+        // APIに読み込ませるドキュメントの作成
+        $document = new Document();
+        $document->setContent($request->title . ' ' . $request->content);
+        $document->setType(Type::PLAIN_TEXT);
+        // 感情分析の実行
+        $response = $client->analyzeSentiment($document);
+        $sentiment = $response->getDocumentSentiment();
+        $score = $sentiment->getScore();
+        // スコアを数値として表示する。感情スコアと命名。
+        $summary = $score;
+
         // 手順
         $posts = new Post;
         $posts->title = $request->title;
@@ -52,6 +70,7 @@ class PostsController extends Controller
             }
             $posts->image_path = json_encode($imagePaths);
         }
+        $posts->summary = $summary;
 
         $posts->save();
 
@@ -62,10 +81,23 @@ class PostsController extends Controller
     }
 
 // 投稿一覧画面
-public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(12);
-        return view('Member.post_index', ['posts' => $posts]);
+        $keyword = $request->input('keyword');
+
+        $query = Post::query();
+        // empty関数:意図しない値の混入を防ぐ
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('content', 'LIKE', "%{$keyword}%")
+                    // 感情スコアが低いものを検知し、不適切な投稿を確認しやすくする。
+                    ->orWhere('summary', '<=', 0);
+            });
+        }
+
+        $posts = $query->orderBy('created_at', 'desc')->paginate(12);
+        return view('Member.post_index', ['posts' => $posts, 'keyword' => $keyword]);
     }
 
 
