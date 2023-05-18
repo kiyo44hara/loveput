@@ -69,7 +69,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="auth-guide">登録がお済みでない方は<a href="{{ route('login') }}" >こちら</a>から</div>
+                                <div class="auth-guide">登録済みの方は<a href="{{ route('login') }}" >こちら</a>から</div>
                             </form>
                         </div>
                     </div>

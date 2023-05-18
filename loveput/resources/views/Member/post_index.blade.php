@@ -50,7 +50,7 @@
                                         @endif
                                     </div>
                                     <div class="card-footer">
-                                        <small><a href="{{ route('posts.show', $post->id) }}" >投稿者: {{ $post->user->name }}</a></small>
+                                        <small><a href="{{ route('user.show', $post->user->id) }}" >投稿者: {{ $post->user->name }}</a></small>
                                         <small>{{ $post->created_at->format('Y/m/d H:i') }}</small>
                                         <small>感情スコア:{{ $post->summary }}</small>
                                     </div>

@@ -10,9 +10,13 @@
                 <h2>{{ $user->name }}さんの </h2>
                 <h2>My Room</h2>
                 <hr>
+                <!-- 会員情報 -->
                 <div class="form-group">
+                <!-- 他人からは会員情報は閲覧不可 -->
+                @if(Auth::user()->id == $user->id)
                     <div>【メールアドレス】</div>
                     <div class="form-control-static">{{ $user->email }}</div>
+                @endif
                 </div>
             </div>
             <!-- 画面右側 -->
