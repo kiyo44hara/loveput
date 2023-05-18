@@ -15,6 +15,7 @@
                     @endif
                 </div>
                 <div class="card">
+                    <!-- タイトル -->
                     <h3 class="card-header">{{ $post->title }}</h3>
                     <!-- 画像 -->
                     @if($post->image_path)
@@ -24,11 +25,13 @@
                     @endif
 
                     <div class="card-body">
+                        <!-- 内容 -->
                         <p class="card-text" style="white-space: pre-line;">{{ $post->content }}</p>
                     </div>
 
                 
                     <div class="card-footer">
+                        <!-- 編集アイコン（他人には見えない） -->
                         @if(Auth::user()->id == $post->user_id)
                             <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集</a>
                         @endif
