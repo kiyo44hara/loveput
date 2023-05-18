@@ -18,6 +18,8 @@ class CreatePostsTable extends Migration
             $table->integer('user_id');
             $table->string('title');
             $table->text('content');
+            $table->float('summary', 8, 2);
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
