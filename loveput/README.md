@@ -1,7 +1,6 @@
 ![loveput背景](https://github.com/kiyo44hara/loveput/assets/119833213/f0647419-ef4e-46e6-9eeb-794afe3c2ea8)
 
-[動画データ]  
-![オリジナルデータ_-_コピー_AdobeExpress](https://github.com/kiyo44hara/loveput/assets/119833213/375e8126-018c-4836-9aec-4ce2fd83511b)  
+[動画データ]   
 https://docs.google.com/presentation/d/1M9bdC9mmIiOf7Gt-F4tFtDLg5sv_tK6FCUJUYCHI204/edit?usp=sharing
 
 [テーマ]  
@@ -27,7 +26,7 @@ https://docs.google.com/presentation/d/1M9bdC9mmIiOf7Gt-F4tFtDLg5sv_tK6FCUJUYCHI
 [課題]
 >　環境、言語、フレームワークへの理解  
 > コーディングスキル  
-> デバック能力の向上
+> デバック能力の向上  
 > より実践に近い、アプリケーション制作力
 
 [反省点、次回実践したい事]
