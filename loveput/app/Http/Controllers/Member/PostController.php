@@ -15,6 +15,7 @@ use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document\Type;
 
+
 class PostController extends Controller
 {
     protected $loveRepository;
@@ -39,7 +40,7 @@ class PostController extends Controller
         // バリデーション
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:30',
-            'content' => 'required|max: 5000',
+            'content' => 'required|max:5000',
             'images.*' => 'nullable|image|max:2048' // 2MB = 2048KB
         ]);
         
@@ -72,6 +73,11 @@ class PostController extends Controller
         $posts->user_id = Auth::id();
         // 画像保存する場合
         if ($request->hasFile('images')) {
+            if (count($request->file('images')) >= 5) {
+                return redirect()
+                    ->route('post')
+                    ->with('false','投稿できる画像は4枚までです。');
+            }
             $imagePaths = [];
             foreach($request->file('images') as $image) {
                 $path = $image->store('public/images');
