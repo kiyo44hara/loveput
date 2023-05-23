@@ -15,6 +15,7 @@ use Google\Cloud\Language\V1\LanguageServiceClient;
 use Google\Cloud\Language\V1\Document;
 use Google\Cloud\Language\V1\Document\Type;
 
+
 class PostController extends Controller
 {
     protected $loveRepository;
