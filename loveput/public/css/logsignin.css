@@ -1,4 +1,4 @@
-.log_sign_in {
+body {
     background-image: url("/images/log_sign_in.jpg");
     background-size: contain;
     background-repeat: no-repeat;
@@ -10,7 +10,7 @@
 
 
 .card {
-    top: 37vh;
+    top: 30vh;
 }
 
 .card-header {

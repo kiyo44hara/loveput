@@ -46,11 +46,81 @@
         .auth-guide {
             text-align: right;
         }
+
+        header {
+            z-index: 1;
+            background-color: #64e3dd80;
+            width: 100%;
+            height: 60px;
+            position: fixed;
+        }
+
+        header ul {
+            list-style: none;
+            padding-top: 20px;
+            font-size: 20px;
+        }
+
+        header li {
+            display: inline-block;
+        }
+
+        header a {
+            font-weight: bold;
+            color: #c7005c;
+            padding: 10px;
+        }
+
+        .main-content {
+            
+            padding-top: 95px;
+        }
     </style>
     
 </head>
 
-<body>
+<body class="main-body">
+    <!-- ヘッダー -->
+    <header>
+        <ul>
+            @if (Auth::check())
+            <!-- トップページ -->
+            <li>
+                <a href="<?= route('home') ?>">Top</a>
+            </li>
+            <!-- マイページ -->
+            <li>
+                <a href="{{ route('user.show', ['id' => Auth::user()->id]) }}">マイルーム</a>
+            </li>
+            <!-- 新規投稿 -->
+            <li>
+                <a href="<?= route('post') ?>">新規投稿</a>
+            </li>
+            <!-- 新規投稿 -->
+            <li>
+                <a href="<?= route('posts.index') ?>">プレゼン一覧</a>
+            </li>
+            <!-- ログアウト -->
+            <li>
+                <a href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    ログアウト
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    </form>
+            </li>
+            @else
+            <li>
+            <a href="<?= route('register') ?>">新規会員登録</a>
+            </li>
+            <li>
+                <a href="<?= route('login') ?>">ログイン</a>
+            </li>
+            @endif
+        </ul>
+    </header>
     <div id="app">
         <!-- ハンバーガーメニュー -->
         <div class="hamburger">
@@ -98,8 +168,7 @@
         </ul>
         </nav>
 
-
-        <main class="py-4">
+        <main class="main-content">
             @yield('content')
         </main>
     </div>

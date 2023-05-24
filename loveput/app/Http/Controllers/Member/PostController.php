@@ -99,20 +99,27 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
+        $sort = $request->input('sort');
 
         $query = Post::query();
         // empty関数:意図しない値の混入を防ぐ
         if (!empty($keyword)) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('title', 'LIKE', "%{$keyword}%")
-                    ->orWhere('content', 'LIKE', "%{$keyword}%")
-                    // 感情スコアが低いものを検知し、不適切な投稿を確認しやすくする。
-                    ->orWhere('summary', '<=', 0);
+                    ->orWhere('content', 'LIKE', "%{$keyword}%");
             });
+        }
+        // ソート機能（感情スコアで振り分けられる）
+        if ($sort == 'positive') {
+            $query->where('summary', '>', 0)->orderBy('created_at', 'desc')->orderBy('summary');
+        } elseif ($sort == 'negative') {
+            $query->where('summary', '<=', 0)->orderBy('created_at', 'desc')->orderBy('summary');
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
 
         $posts = $query->orderBy('created_at', 'desc')->paginate(12);
-        return view('Member.post_index', ['posts' => $posts, 'keyword' => $keyword]);
+        return view('Member.post_index', ['posts' => $posts, 'keyword' => $keyword, 'sort' => $sort]);
     }
 
 

@@ -24,7 +24,18 @@
                             <input type="submit" value="検索">
                         </form>
                     </div>
-                    <!-- 検索画面 -->
+                    <!-- ソート機能 -->
+                    <div class="sort-area">
+                        <form action="{{ route('posts.index') }}" method="GET">
+                            <select name="sort">
+                                <option value="positive" @if ($sort == 'positive') selected @endif>楽しい投稿を探す</option>
+                                <option value="negative" @if ($sort == 'negative') selected @endif>哀しい投稿を探す</option>
+                            </select>
+                            <input type="submit" value="ソート">
+                        </form>
+                    </div>
+
+
                     <div class="panel-body">
                         <div class="row">
                             @foreach ($posts as $post)

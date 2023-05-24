@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/log-sign-in.css') }}">
-<body class="log_sign_in">
+<link rel="stylesheet" href="{{ asset('css/logsignin.css') }}">
+<body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">

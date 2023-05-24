@@ -18,7 +18,7 @@
                                 <form method="POST" action="/posts" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <!-- 画像 -->
-                                    <label for="title" class="col-md-12 control-label">【Images（ドラッグで選択すると、複数の画像投稿ができます。※4枚まで編集テスト）】</label>
+                                    <label for="title" class="col-md-12 control-label">【Images（ドラッグで選択すると、複数の画像投稿ができます。※4枚まで）】</label>
                                     <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
                                         <input id="image1" type="file" name="images[]" multiple>
                                         <input id="image2" type="file" name="images[]" multiple>

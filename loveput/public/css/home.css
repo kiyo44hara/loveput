@@ -23,12 +23,11 @@ body {
 }
 
 .alert-alert-success {
-    background-color: rgba(255,0,103,0.20);
-    padding: 20px;
-    font-size: 20px;
+    background-color: #64e3dd80;
+    font-size: 15px;
 }
 
-.test {
+.top-coll {
     background-color: rgba(255,0,103,0.20);
     font-size: 20px;
     position: absolute;
