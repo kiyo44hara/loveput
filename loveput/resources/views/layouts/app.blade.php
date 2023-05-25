@@ -42,11 +42,6 @@
             color: pink;
         }
 
-        /* ログイン画面、新規登録画面の案内（登録がお済でない方は…） */
-        .auth-guide {
-            text-align: right;
-        }
-
         header {
             z-index: 1;
             background-color: #64e3dd80;
