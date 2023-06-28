@@ -213,3 +213,6 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', '投稿削除完了しました！');
     }
 }
+
+
+// てすと
